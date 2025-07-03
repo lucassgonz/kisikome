@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Logs
+*.log
+
+# Builds do React
+build/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Cache do editor
+.vscode/
+.idea/
