@@ -2,7 +2,7 @@ import { Home, ShoppingCart, Bookmark } from 'lucide-react';
 
 export default function BottomBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-orange-500 text-white p-5 rounded-t-2xl shadow flex justify-around z-50">
+<div className="fixed bottom-0 bg-orange-custom dark:bg-gray-800 text-white w-full py-3 flex justify-around transition-colors duration-300">
       <button className="flex flex-col items-center text-xs">
         <Home size={20} />
       </button>

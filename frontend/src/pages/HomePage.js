@@ -50,7 +50,7 @@
 //   );
 // }
 import React from 'react';
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../components/ProductCard';
 
 const mockProducts = {
   promocoes: [
@@ -75,51 +75,52 @@ const mockProducts = {
     { nome: 'Guaraná', preco: 7.0, imagem: '/assets/guarana.svg' },
     { nome: 'Fanta Laranja', preco: 7.0, imagem: '/assets/laranja.svg' },
     { nome: 'Fanta Uva', preco: 7.0, imagem: '/assets/uva.svg' },
-  ]
+  ],
 };
 
-
-
 export default function HomePageMocked() {
-
-
   const handleAdd = (product) => {
     console.log('Adicionado ao carrinho:', product);
   };
 
   return (
-    <div className="p-4 bg-orange-50 min-h-screen">
-      {/* Promoções */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 justify-items-center mb-6">
-        {mockProducts.promocoes.map((p, i) => (
-          <ProductCard key={i} product={p} onAddToCart={handleAdd} destaque />
-        ))}
-      </section>
+<div className="p-4 bg-orange-50 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
+     <section className="container mx-auto mb-6">
+  <div className="grid gap-x-6 gap-y-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
+    {mockProducts.promocoes.map((p, i) => (
+      <ProductCard key={i} product={p} onAddToCart={handleAdd} destaque />
+    ))}
+  </div>
+</section>
 
+<h2 className="text-lg font-bold mb-2 container mx-auto">Refeições:</h2>
+<section className="container mx-auto mb-6">
+  <div className="grid gap-x-2 gap-y-3 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-items-center">
+    {mockProducts.refeicoes.map((p, i) => (
+      <ProductCard key={i} product={p} onAddToCart={handleAdd} />
+    ))}
+  </div>
+</section>
 
-      {/* Refeições */}
-      <h2 className="text-lg font-bold mb-2">Refeições:</h2>
-<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 justify-items-center mb-4">
-        {mockProducts.refeicoes.map((p, i) => (
-          <ProductCard key={i} product={p} onAddToCart={handleAdd}  />
-        ))}
-      </section>
+<h2 className="text-lg font-bold mb-2 container mx-auto">Acompanhamentos:</h2>
+<section className="container mx-auto mb-6">
+  <div className="grid gap-x-2 gap-y-3 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-items-center">
+    {mockProducts.acompanhamentos.map((p, i) => (
+      <ProductCard key={i} product={p} onAddToCart={handleAdd} />
+    ))}
+  </div>
+</section>
 
-      {/* Acompanhamentos */}
-      <h2 className="text-lg font-bold mb-2">Acompanhamentos:</h2>
-<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 justify-items-center mb-4">
-        {mockProducts.acompanhamentos.map((p, i) => (
-          <ProductCard key={i} product={p} onAddToCart={handleAdd}  />
-        ))}
-      </section>
+<h2 className="text-lg font-bold mb-2 container mx-auto">Bebidas:</h2>
+<section className="container mx-auto mb-10">
+  <div className="grid gap-x-2 gap-y-3 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-items-center">
+    {mockProducts.bebidas.map((p, i) => (
+      <ProductCard key={i} product={p} onAddToCart={handleAdd} />
+    ))}
+  </div>
+</section>
 
-      {/* Bebidas */}
-      <h2 className="text-lg font-bold mb-2">Bebidas:</h2>
-<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 justify-items-center mb-4">
-        {mockProducts.bebidas.map((p, i) => (
-          <ProductCard key={i} product={p} onAddToCart={handleAdd}  />
-        ))}
-      </section>
     </div>
   );
 }
+
