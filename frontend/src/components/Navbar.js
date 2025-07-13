@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, X, Moon, Sun, User, Settings, HelpCircle, Info } from 'lucide-react';
 
-export default function Navbar({ toggleDarkMode }) {
+export default function Navbar({ toggleDarkMode, isDark }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const html = document.documentElement;
-    setIsDark(html.classList.contains('dark'));
-  }, []);
+  const navigate = useNavigate();
 
   const handleToggleDark = () => {
-    toggleDarkMode(); 
-    setIsDark(prev => !prev); 
+    toggleDarkMode();
+  };
+
+  // Navegações
+  const goTo = (path) => {
+    navigate(path);
+    setMenuOpen(false);
   };
 
   return (
     <>
-      <nav className="bg-orange-custom dark:bg-gray-800 text-white px-4 py-3 shadow flex items-center justify-between rounded-b-2xl">
+      <nav className="bg-orange-custom dark:bg-gray-800 text-white px-4 py-3 shadow flex items-center justify-between rounded-b-2xl transition-colors duration-300">
         <button onClick={() => setMenuOpen(true)} className="p-1">
           <Menu size={28} />
         </button>
 
-        <img src="/assets/logotipo.png" alt="KiSiKome" className="h-16 object-contain" />
+        <img
+          src={isDark ? '/assets/logotipo_dark.png' : '/assets/logotipo.png'}
+          alt="KiSiKome"
+          className="h-16 object-contain transition-all duration-300"
+        />
 
         <button onClick={handleToggleDark} className="p-1">
           {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -39,24 +44,24 @@ export default function Navbar({ toggleDarkMode }) {
           </div>
 
           <img
-            src="/assets/logo.png"
+            src={isDark ? '/assets/logo_dark.png' : '/assets/logo.png'}
             alt="Logo"
-            className="h-28 mx-auto rounded-full border-2 border-blue-500 p-2 object-contain"
+            className="h-28 mx-auto rounded-full border-2 border-blue-500 p-2 object-contain transition-all duration-300"
           />
 
           <div className="flex flex-col gap-4 mt-4 text-sm font-semibold">
-            <div className="flex items-center gap-2">
+            <button onClick={() => goTo('/profile')} className="flex items-center gap-2">
               <User size={18} /> Meus Dados
-            </div>
-            <div className="flex items-center gap-2">
+            </button>
+            <button onClick={() => goTo('/settings')} className="flex items-center gap-2">
               <Settings size={18} /> Configurações
-            </div>
-            <div className="flex items-center gap-2">
+            </button>
+            <button onClick={() => goTo('/help')} className="flex items-center gap-2">
               <HelpCircle size={18} /> Ajuda
-            </div>
-            <div className="flex items-center gap-2">
+            </button>
+            <button onClick={() => goTo('/about')} className="flex items-center gap-2">
               <Info size={18} /> Sobre Nós
-            </div>
+            </button>
           </div>
         </div>
       )}

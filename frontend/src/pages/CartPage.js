@@ -15,16 +15,17 @@ const CartPage = () => {
   };
 
   return (
-    <div className="page-container">
-      <h1>Seu Carrinho</h1>
+    <div className="page-container p-4">
+      <h1 className="text-xl font-bold mb-4">Seu Carrinho</h1>
       {items.map(i => (
-        <div key={i.id} className="cart-item">
+        <div key={i.id} className="cart-item flex justify-between items-center mb-3">
           <span>{i.product_name} - {i.qty}x R$ {i.price}</span>
-          <button onClick={() => handleRemove(i.id)}>Remover</button>
+          <button onClick={() => handleRemove(i.id)} className="bg-red-500 text-white px-2 py-1 rounded">
+            Remover
+          </button>
         </div>
       ))}
     </div>
-
   );
 };
 

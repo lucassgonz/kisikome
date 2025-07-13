@@ -51,6 +51,7 @@
 // }
 import React from 'react';
 import ProductCard from '../components/ProductCard';
+import api from '../services/api'
 
 const mockProducts = {
   promocoes: [
@@ -80,8 +81,18 @@ const mockProducts = {
 
 export default function HomePageMocked() {
   const handleAdd = (product) => {
-    console.log('Adicionado ao carrinho:', product);
-  };
+  api.post('/cart', {
+    product_name: product.nome,
+    price: product.preco,
+    qty: 1
+  })
+    .then(() => {
+      console.log('Adicionado ao carrinho com sucesso!');
+    })
+    .catch(() => {
+      alert('Erro ao adicionar ao carrinho');
+    });
+};
 
   return (
 <div className="p-4 bg-orange-50 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
