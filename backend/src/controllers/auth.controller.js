@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { nome, email, telefone, endereco, senha } = req.body;
+  const { nome, email, telefone, senha } = req.body;
 
   // Valida campos (simples)
   if (!email || !senha || !nome) {
@@ -55,7 +55,7 @@ exports.register = async (req, res) => {
   // Insere
   const { data: cliente, error } = await supabase
     .from('cliente')
-    .insert([{ nome, email, telefone, endereco, senha_hash: hash }])
+    .insert([{ nome, email, telefone, senha_hash: hash }])
     .select()
     .single();
 

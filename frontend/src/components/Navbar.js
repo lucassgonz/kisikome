@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, X, Moon, Sun, User, Settings, HelpCircle, Info } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Moon,
+  Sun,
+  User,
+  Settings,
+  HelpCircle,
+  Info,
+  LogOut
+} from 'lucide-react';
 
 export default function Navbar({ toggleDarkMode, isDark }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,10 +20,15 @@ export default function Navbar({ toggleDarkMode, isDark }) {
     toggleDarkMode();
   };
 
-  // Navegações
   const goTo = (path) => {
     navigate(path);
     setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setMenuOpen(false);
+    navigate('/login');
   };
 
   return (
@@ -34,7 +49,6 @@ export default function Navbar({ toggleDarkMode, isDark }) {
         </button>
       </nav>
 
-      {/* MENU LATERAL */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-orange-custom dark:bg-gray-900 text-white w-64 p-6 flex flex-col gap-6 transition-colors duration-300">
           <div className="flex justify-end">
@@ -61,6 +75,9 @@ export default function Navbar({ toggleDarkMode, isDark }) {
             </button>
             <button onClick={() => goTo('/about')} className="flex items-center gap-2">
               <Info size={18} /> Sobre Nós
+            </button>
+            <button onClick={handleLogout} className="flex items-center gap-2 text-red-300 hover:text-red-500 mt-4">
+              <LogOut size={18} /> Sair
             </button>
           </div>
         </div>
