@@ -51,7 +51,6 @@ exports.create = async (req, res) => {
 
     const total = items.reduce((sum, item) => sum + item.qtde * item.preco, 0);
 
-    // Cria o pedido com total calculado
     const { data: pedido, error: pedidoError } = await supabase
       .from('pedido')
       .insert({ cliente_id, total })
@@ -62,7 +61,7 @@ exports.create = async (req, res) => {
 
     const itensParaInserir = items.map(item => ({
       pedido_id: pedido.id,
-      produto_id: item.produto_id || item.produto?.id, // segurança extra
+      produto_id: item.produto_id || item.produto?.id, 
       qtde: item.qtde,
       preco: item.preco,
     }));
