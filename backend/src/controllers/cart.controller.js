@@ -24,7 +24,7 @@ exports.list = async (req, res) => {
     // Busca os itens do carrinho
     const { data: itens, error: itensErr } = await supabase
       .from('carrinho_item')
-      .select('id, qtde, preco, produto:produto_id(nome)')
+.select('id, produto_id, qtde, preco, produto:produto_id(nome)')
       .eq('carrinho_id', carrinho.id);
 
     if (itensErr) return res.status(500).json({ error: itensErr.message });

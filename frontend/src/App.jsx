@@ -17,7 +17,7 @@ import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import HelpPage from './pages/HelpPage';
 import AboutPage from './pages/AboutPage';
-
+import CheckoutPage from './pages/CheckoutPage';
 const RequireAuth = ({ children }) => {
   const location = useLocation();
   const token = localStorage.getItem('token');
@@ -45,6 +45,7 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/cart" element={<RequireAuth><CartPage /></RequireAuth>} />

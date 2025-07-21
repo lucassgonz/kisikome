@@ -70,3 +70,17 @@ exports.register = async (req, res) => {
 
   res.status(201).json({ token });
 };
+// auth.controller.js
+exports.profile = async (req, res) => {
+  const { id } = req.user;
+
+  const { data, error } = await supabase
+    .from('cliente')
+    .select('id, nome, email, telefone')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) return res.status(404).json({ error: 'Cliente não encontrado' });
+
+  res.json(data);
+};

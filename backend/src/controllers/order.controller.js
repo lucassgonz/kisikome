@@ -1,4 +1,4 @@
-const supabase  = require('../config/supabase');
+const supabase = require('../config/supabase');
 
 
 exports.listByClient = async (req, res) => {
@@ -40,15 +40,21 @@ exports.details = async (req, res) => {
     }))
   });
 };
-
 exports.create = async (req, res) => {
   const { id: cliente_id } = req.user;
-  const { items } = req.body; 
+  const { items } = req.body;
 
   try {
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: 'Nenhum item enviado' });
+    }
+
+    const total = items.reduce((sum, item) => sum + item.qtde * item.preco, 0);
+
+    // Cria o pedido com total calculado
     const { data: pedido, error: pedidoError } = await supabase
       .from('pedido')
-      .insert({ cliente_id })
+      .insert({ cliente_id, total })
       .select()
       .single();
 
@@ -56,7 +62,7 @@ exports.create = async (req, res) => {
 
     const itensParaInserir = items.map(item => ({
       pedido_id: pedido.id,
-      produto_id: item.produto_id,
+      produto_id: item.produto_id || item.produto?.id, // segurança extra
       qtde: item.qtde,
       preco: item.preco,
     }));
@@ -69,6 +75,9 @@ exports.create = async (req, res) => {
 
     res.status(201).json({ message: 'Pedido criado com sucesso', pedidoId: pedido.id });
   } catch (error) {
+    console.error('[Erro ao criar pedido]', error);
     res.status(500).json({ error: error.message });
   }
 };
+
+
